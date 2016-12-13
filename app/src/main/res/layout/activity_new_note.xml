@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="#ffffff">
+    <GridView
+        android:id="@+id/grid_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="3"/>
+    <TextView
+        android:id="@+id/time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/grid_image"
+        android:textColor="#757575"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif-light"/>
+    <EditText
+        android:id="@+id/title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title"
+        android:maxLines="1"
+        android:ellipsize="none"
+        android:layout_below="@+id/time_textview"/>
+    <EditText
+        android:id="@+id/note_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note"
+        android:maxLines="1"
+        android:ellipsize="none"
+        android:layout_below="@+id/title_textview"/>
+    <LinearLayout
+        android:layout_below="@+id/note_textview"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/alarms_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_alarms"/>
+    <Button
+        android:id="@+id/time_button"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:textSize="15sp"
+        style="?android:borderlessButtonStyle"
+        android:hint="Alarm"/>
+    </LinearLayout>
+</RelativeLayout>
+
+</LinearLayout>
