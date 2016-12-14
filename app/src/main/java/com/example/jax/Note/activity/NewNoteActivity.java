@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.jax.Note.Consts;
 import com.example.jax.Note.custom.view.GridView.GirdViewAdapter;
 import com.example.jax.Note.db.DBHelper;
 import com.example.jax.Note.model.ImageItem;
@@ -42,6 +43,7 @@ public class NewNoteActivity extends Activity implements ItemClickListener {
     private EditText editTitle, editNote;
     private TextView tvTime;
     DBHelper dbHelper;
+    NoteInfo mNoteInfoToUpdate;
 
 
 
@@ -66,8 +68,18 @@ public class NewNoteActivity extends Activity implements ItemClickListener {
         grGirdViewAdapter = new GirdViewAdapter(this,R.layout.grid_item_layout, data);
         gridView.setAdapter(grGirdViewAdapter);
 
+        Bundle data = getIntent().getExtras();
+        if (data != null && data.containsKey(Consts.NOTE)) {
+            mNoteInfoToUpdate = (NoteInfo) data.getSerializable(Consts.NOTE);
+        }
 
+        initValuesForUi();
+    }
 
+    private void initValuesForUi() {
+        if (mNoteInfoToUpdate == null) return;
+        editTitle.setText(mNoteInfoToUpdate.title);
+        editNote.setText(mNoteInfoToUpdate.note);
     }
 
     @Override

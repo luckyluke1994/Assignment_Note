@@ -11,17 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.example.jax.Note.Consts;
 import com.example.jax.Note.custom.view.RecyclerView.RecyclerAdapter;
 import com.example.jax.Note.db.DBHelper;
 import com.example.jax.Note.model.ItemClickListener;
 import com.example.jax.Note.model.NoteInfo;
 import com.example.jax.assignment_note.R;
 
-public class MainActivity extends Activity implements ItemClickListener{
-
+public class MainActivity extends Activity implements ItemClickListener {
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
-    private DBHelper dbHelper ;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,12 @@ public class MainActivity extends Activity implements ItemClickListener{
 
         dbHelper = DBHelper.getInstance(getApplicationContext());
 
-        recyclerView =(RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        recyclerAdapter = new RecyclerAdapter(dbHelper.getAllNote(),this);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerAdapter = new RecyclerAdapter(dbHelper.getAllNote(), this);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(recyclerAdapter);
 
     }
@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements ItemClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_new_note:
                 NewNote();
                 return true;
@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements ItemClickListener{
         }
     }
 
-    private void NewNote(){
+    private void NewNote() {
         Intent i = new Intent(MainActivity.this, NewNoteActivity.class);
         startActivity(i);
         finish();
@@ -66,18 +66,20 @@ public class MainActivity extends Activity implements ItemClickListener{
 
     @Override
     public void onItemClick(int position) {
-        dbHelper.deleteNote(position);
-
-        recyclerAdapter = new RecyclerAdapter(dbHelper.getAllNote(),this);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.setAdapter(recyclerAdapter);
+//        dbHelper.deleteNote(position);
+//
+//        recyclerAdapter = new RecyclerAdapter(dbHelper.getAllNote(),this);
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+//        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
     public void editNote(NoteInfo noteInfo) {
         Intent i = new Intent(MainActivity.this, NewNoteActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Consts.NOTE, noteInfo);
+        i.putExtras(bundle);
         startActivity(i);
-
     }
 
 }

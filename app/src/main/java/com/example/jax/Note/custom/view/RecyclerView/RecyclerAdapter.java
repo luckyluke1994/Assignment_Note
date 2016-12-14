@@ -35,6 +35,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.noteInfo = noteInfo;
         this.mContext = context;
         this.listener = (ItemClickListener) context;
+        dbHelper = DBHelper.getInstance(mContext);
     }
 
     //giao dien 1 phan tu
@@ -68,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
                   //xoa
                   listener.onItemClick(noteInfo.get(position).id);
                   //edit
-                  listener.editNote(dbHelper.getSingleNote(noteInfo1.id));
+                  listener.editNote(dbHelper.getSingleNote(noteInfo.get(position).id));
             }
         });
     }

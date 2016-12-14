@@ -114,15 +114,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public NoteInfo getSingleNote(int id) {
         SQLiteDatabase database = getReadableDatabase();
-
         Cursor cursor = database.query(TB_NAME, new String[]{ID, TITLE, NOTE},
-                ID + "=", new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
+                ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
         NoteInfo noteInfo = new NoteInfo();
-        noteInfo.title = cursor.getString(cursor.getColumnIndex(TITLE));
-        noteInfo.note = cursor.getString(cursor.getColumnIndex(NOTE));
-      //  noteInfo.id = cursor.getInt(cursor.getColumnIndex(ID));
+        if (cursor != null && cursor.moveToFirst()) {
+            noteInfo.title = cursor.getString(cursor.getColumnIndex(TITLE));
+            noteInfo.note = cursor.getString(cursor.getColumnIndex(NOTE));
+        }
+
+        //  noteInfo.id = cursor.getInt(cursor.getColumnIndex(ID));
 
         return noteInfo;
     }
